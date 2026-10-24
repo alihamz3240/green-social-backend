@@ -73,7 +73,7 @@ def info():
         msg = str(e)
         if "private" in msg.lower() or "login" in msg.lower():
             return jsonify(error="Ye video private hai ya login mangti hai."), 400
-        return jsonify(error="Video nahi mili. Link check karein ya baad mein try karein."), 400
+     return jsonify(error="Video nahi mili. Asli wajah: " + msg[:300]), 400
 
 
 @app.get("/api/download")
