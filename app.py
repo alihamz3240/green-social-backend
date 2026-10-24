@@ -72,8 +72,8 @@ def info():
     except Exception as e:
         msg = str(e)
         if "private" in msg.lower() or "login" in msg.lower():
-            return jsonify(error="Ye video private hai ya login mangti hai."), 400
-     return jsonify(error="Video nahi mili. Asli wajah: " + msg[:300]), 400
+            return jsonify(error="Ye video private hai ya login mangti hai. Detail: " + msg[:250]), 400
+        return jsonify(error="Video nahi mili. Asli wajah: " + msg[:300]), 400
 
 
 @app.get("/api/download")
@@ -108,9 +108,9 @@ def download():
             return resp
 
         return send_file(path, as_attachment=True, download_name=f"{title} - GreenSocialOnline{ext}")
-    except Exception:
+    except Exception as e:
         shutil.rmtree(tmp, ignore_errors=True)
-        return jsonify(error="Download nahi ho saka. Video private ya bohat bari ho sakti hai."), 400
+        return jsonify(error="Download nahi ho saka. Wajah: " + str(e)[:250]), 400
 
 
 if __name__ == "__main__":
